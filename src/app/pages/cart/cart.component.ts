@@ -53,11 +53,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onCheckout(): void {
     this.http
-      .post('http://localhost:4200/checkout', {
+      .post('http://localhost:4242/checkout', {
         items: this.cart.items,
       })
       .subscribe(async (res: any) => {
-        let stripe = await loadStripe('your token');
+        let stripe = await loadStripe('pk_test_51Njzw9IM0PmcZwu3IVcVXL1a2ZnhQpYlYY89SUOzHgVoLWiwBsGZrZMKfKPMZYggpki8XU7qxNLknt2jGvprx8rP006TUlaWBV');
         stripe?.redirectToCheckout({
           sessionId: res.id,
         });
