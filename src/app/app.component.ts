@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Cart } from './models/cart.model';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+  <app-header [cart]="cart"></app-header>
+  <router-outlet></router-outlet>
+  `,
+  styles: []
 })
-export class AppComponent {
-  title = 'sample-webshop';
+export class AppComponent implements OnInit {
+  cart: Cart = { items: [] };
+  title: any;
+
+  constructor(private cartService: CartService) {}
+
+  ngOnInit() {
+    this.cartService.cart.subscribe((_cart) => {
+      this.cart = _cart;
+    });
+  }
 }
